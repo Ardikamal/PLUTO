@@ -1,64 +1,69 @@
-# 🪐 Pluto AI — Companion untuk Meili April
+# 🪐 Pluto AI v3 — April Pluto Edition
 
-AI Assistant personal dengan kepribadian INFJ, terintegrasi Claude + GPT-4o + Gemini.
+AI Companion personal untuk **Meily Muthiah Savira (April Pluto)**
+Berkepribadian INFJ · Suara laki-laki human-like · Voice note · Planet Pluto logo
 
 ---
 
-## 🚀 Deploy ke Vercel (5 menit)
+## ✨ Fitur Baru v3
+
+- 🪐 **Logo Planet Pluto** animasi 3D dengan Charon (bulannya) + cincin
+- 🎙 **Voice Note** — tekan mic, bicara, Pluto mendengar (Web Speech API)
+- 🔊 **Suara AI laki-laki** — Pluto berbicara balik (ElevenLabs / Web Speech)
+- 🌌 **Space UI** cinematic — nebula, bintang jatuh, parallax
+- 💜 Personal untuk Meily Muthiah Savira (April Pluto)
+- 🤖 3 Engine: Claude + GPT-4o + Gemini + Auto
+
+---
+
+## 🚀 Deploy ke Vercel
 
 ### Langkah 1 — Upload ke GitHub
-1. Buat repo baru di github.com (misal: `pluto-ai`)
-2. Upload semua file ini ke repo tersebut
+Buat repo baru → upload semua file ini
 
-### Langkah 2 — Connect ke Vercel
-1. Buka [vercel.com](https://vercel.com) → Login
-2. Klik **"Add New Project"**
-3. Import repo GitHub tadi
-4. Klik **Deploy** (biarkan setting default)
+### Langkah 2 — Connect Vercel
+vercel.com → Add New Project → Import repo → Deploy
 
-### Langkah 3 — Tambahkan API Keys
-Di Vercel dashboard → **Settings → Environment Variables**, tambahkan:
+### Langkah 3 — Environment Variables
+Settings → Environment Variables → tambahkan:
 
-| Variable | Value | Keterangan |
+| Variable | Wajib | Keterangan |
 |---|---|---|
-| `CLAUDE_API_KEY` | `sk-ant-...` | Dari console.anthropic.com |
-| `OPENAI_API_KEY` | `sk-...` | Dari platform.openai.com |
-| `GEMINI_API_KEY` | `AIza...` | Dari aistudio.google.com |
-
-> Minimal cukup `CLAUDE_API_KEY` saja untuk memulai.
+| `CLAUDE_API_KEY` | ✅ Wajib | console.anthropic.com/settings/keys |
+| `OPENAI_API_KEY` | Opsional | platform.openai.com |
+| `GEMINI_API_KEY` | Opsional | aistudio.google.com |
+| `ELEVENLABS_API_KEY` | Opsional | elevenlabs.io — untuk suara manusia premium |
+| `ELEVENLABS_VOICE_ID` | Opsional | Default: Adam (pNInz6obpgDQGcFmaJgB) |
 
 ### Langkah 4 — Redeploy
-Setelah menambah env variables, klik **Redeploy**.
-
-Selesai! Pluto sudah online di `https://nama-project.vercel.app` 🎉
+Deployments → ⋯ → Redeploy
 
 ---
 
-## 📁 Struktur File
+## 🎙 Tentang Fitur Suara
 
-```
-pluto-ai/
-├── api/
-│   └── chat.js          ← Backend proxy (Claude + GPT + Gemini)
-├── public/
-│   └── index.html       ← Frontend UI
-├── vercel.json          ← Konfigurasi Vercel
-└── package.json
-```
+### Voice Input (Speech to Text)
+- Tekan tombol 🎙 mikrofon
+- Bicara dalam bahasa Indonesia
+- Otomatis terdeteksi dan dikirim ke Pluto
+
+### Voice Output (Text to Speech)
+- Klik tombol 🔊 di setiap pesan Pluto
+- Tanpa ElevenLabs: menggunakan Web Speech API browser (gratis)
+- Dengan ElevenLabs: suara "Adam" — deep, warm, human-like male voice
+
+### Setup ElevenLabs (opsional, untuk suara premium)
+1. Daftar di elevenlabs.io
+2. Ambil API key
+3. Pilih voice "Adam" atau voice lain yang dalam dan hangat
+4. Tambahkan ke Vercel Environment Variables
 
 ---
 
-## 📱 Akses dari iPhone / Android
-
-Buka URL Vercel di browser HP → klik **"Add to Home Screen"** → Pluto jadi app icon!
+## 📱 Akses dari HP
+Buka URL Vercel di browser → Add to Home Screen → jadi app!
 
 ---
 
-## ✨ Fitur
-
-- 🤖 3 AI Engine: Claude, GPT-4o, Gemini (pilih atau Auto)
-- 💜 Kepribadian INFJ yang memahami Meili sebagai dokter koas
-- 🌙 Greeting dinamis berubah sesuai waktu (pagi/siang/sore/malam)
-- 📱 Responsive — laptop, tablet, HP semua mulus
-- 🪐 Animasi orb yang hidup saat Pluto berpikir
-- ⚡ Ringan — pure HTML/CSS/JS, no framework
+*Dibuat dengan ❤️ untuk Meily Muthiah Savira — April Pluto*
+*Seperti planet Pluto yang selalu mengorbit setia, meski jauh.*
