@@ -1,0 +1,10 @@
+{
+  "name": "pluto-ai",
+  "version": "1.0.0",
+  "description": "Pluto - AI Companion for Meili April",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static build ready'"
+  },
+  "dependencies": {}
+}
