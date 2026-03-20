@@ -2,533 +2,211 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#05050f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Pluto — April Pluto</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════
-   RESET & TOKENS
-═══════════════════════════════════════════ */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{height:100%;overflow:hidden}
-body{
-  font-family:'DM Sans',sans-serif;
-  background:#05050f;
-  color:#f0edf8;
-  height:100dvh;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  position:relative;
-}
-
+html,body{height:100%;overflow:hidden}
 :root{
-  --pluto-icy:#b8d4f8;
-  --pluto-mid:#8fa3c8;
-  --pluto-dark:#3d4f72;
-  --pluto-shadow:#1a2540;
-  --heart:#c4a8d4;
-  --gold:#e8c87a;
-  --gold2:#f5e0a0;
-  --teal:#7dd3c0;
-  --accent:#a78bfa;
-  --accent2:#c4b5fd;
-  --accent3:#6d28d9;
-  --text:#f0edf8;
-  --text2:#c2bcda;
-  --text3:#7a738e;
-  --surf:rgba(255,255,255,0.04);
-  --surf2:rgba(255,255,255,0.07);
-  --border:rgba(167,139,250,0.1);
-  --border2:rgba(167,139,250,0.22);
-  --glow:rgba(109,40,217,0.35);
+  --icy:#b8d4f8;--mid:#8fa3c8;--accent:#a78bfa;--accent2:#c4b5fd;--accent3:#6d28d9;
+  --gold:#e8c87a;--gold2:#f5e0a0;--teal:#7dd3c0;--pink:#f0a6ca;
+  --text:#f0edf8;--text2:#c2bcda;--text3:#7a738e;
+  --surf:rgba(255,255,255,0.04);--surf2:rgba(255,255,255,0.07);
+  --border:rgba(167,139,250,0.1);--border2:rgba(167,139,250,0.22);
 }
+body{font-family:'DM Sans',sans-serif;background:#05050f;color:var(--text);display:flex;flex-direction:column;height:100dvh;overflow:hidden;position:relative}
 
-/* ═══════════════════════════════════════════
-   SPACE CANVAS
-═══════════════════════════════════════════ */
-#space-canvas{
-  position:fixed;inset:0;
-  pointer-events:none;z-index:0;
-  overflow:hidden;
-}
+/* SPACE */
+#space{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.neb{position:absolute;border-radius:50%;filter:blur(100px);animation:nebDrift var(--dur,25s) ease-in-out infinite var(--del,0s)}
+@keyframes nebDrift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.07)}66%{transform:translate(-25px,45px) scale(0.95)}}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twink var(--d,3s) ease-in-out infinite var(--dl,0s)}
+@keyframes twink{0%,100%{opacity:var(--lo,.1)}50%{opacity:var(--hi,.9)}}
+.shoot{position:absolute;height:1px;background:linear-gradient(to right,transparent,rgba(255,255,255,0.85),transparent);border-radius:1px;animation:shootAnim var(--dur,12s) ease-in-out infinite var(--del,0s);opacity:0;width:100px}
+@keyframes shootAnim{0%{opacity:0;transform:translate(0,0) rotate(-25deg)}3%{opacity:1}10%{opacity:0;transform:translate(250px,120px) rotate(-25deg)}100%{opacity:0}}
 
-/* Nebula clouds */
-.nebula{
-  position:absolute;border-radius:50%;
-  filter:blur(100px);
-  animation:nebDrift var(--dur,25s) ease-in-out infinite var(--del,0s);
-}
-.neb-1{width:700px;height:700px;background:radial-gradient(circle,#3b0f6e 0%,#1a0533 60%,transparent 100%);top:-200px;left:-150px;opacity:0.5}
-.neb-2{width:500px;height:500px;background:radial-gradient(circle,#0f2b6e 0%,#071540 60%,transparent 100%);bottom:-100px;right:-100px;opacity:0.45;--dur:30s;--del:5s}
-.neb-3{width:400px;height:400px;background:radial-gradient(circle,#6e0f3b 0%,#330515 60%,transparent 100%);top:35%;left:25%;opacity:0.25;--dur:20s;--del:10s}
-.neb-4{width:300px;height:300px;background:radial-gradient(circle,#0f6e5a 0%,#052a22 60%,transparent 100%);bottom:20%;right:20%;opacity:0.2;--dur:35s;--del:3s}
-@keyframes nebDrift{
-  0%,100%{transform:translate(0,0) scale(1)}
-  33%{transform:translate(40px,-30px) scale(1.08)}
-  66%{transform:translate(-25px,45px) scale(0.94)}
-}
+/* APP */
+.app{position:relative;z-index:1;display:flex;flex-direction:column;height:100dvh;max-width:860px;margin:0 auto;width:100%}
 
-/* Stars */
-.star{
-  position:absolute;border-radius:50%;background:#fff;
-  animation:starTwinkle var(--d,3s) ease-in-out infinite var(--dl,0s);
-}
-@keyframes starTwinkle{0%,100%{opacity:var(--lo,0.1)}50%{opacity:var(--hi,0.9)}}
+/* HEADER */
+.hdr{display:flex;align-items:center;gap:14px;padding:13px 20px;background:rgba(5,5,15,0.85);backdrop-filter:blur(30px);border-bottom:1px solid var(--border);flex-shrink:0;position:relative}
+.hdr::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,rgba(167,139,250,0.25),transparent)}
 
-/* Shooting star */
-.shoot{
-  position:absolute;
-  width:120px;height:1px;
-  background:linear-gradient(to right,transparent,rgba(255,255,255,0.8),transparent);
-  border-radius:1px;
-  animation:shoot var(--dur,8s) ease-in-out infinite var(--del,0s);
-  opacity:0;
-}
-@keyframes shoot{
-  0%{opacity:0;transform:translate(0,0) rotate(-30deg)}
-  2%{opacity:1}
-  8%{opacity:0;transform:translate(300px,150px) rotate(-30deg)}
-  100%{opacity:0;transform:translate(300px,150px) rotate(-30deg)}
-}
-
-/* ═══════════════════════════════════════════
-   APP SHELL
-═══════════════════════════════════════════ */
-.app{
-  position:relative;z-index:1;
-  display:flex;flex-direction:column;
-  height:100dvh;
-  max-width:860px;margin:0 auto;width:100%;
-}
-
-/* ═══════════════════════════════════════════
-   HEADER
-═══════════════════════════════════════════ */
-.header{
-  display:flex;align-items:center;gap:16px;
-  padding:14px 20px;
-  background:rgba(5,5,15,0.82);
-  backdrop-filter:blur(30px);
-  border-bottom:1px solid var(--border);
-  flex-shrink:0;
-  position:relative;
-}
-.header::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;
-  height:1px;
-  background:linear-gradient(to right,transparent,rgba(167,139,250,0.3),transparent);
-}
-
-/* PLANET PLUTO LOGO */
-.planet-wrap{
-  position:relative;flex-shrink:0;
-  width:52px;height:52px;
-  cursor:pointer;
-}
-.planet-pluto{
-  width:52px;height:52px;border-radius:50%;
+/* PLANET */
+.pw{position:relative;flex-shrink:0;width:50px;height:50px;cursor:pointer}
+.planet{
+  width:50px;height:50px;border-radius:50%;
   background:
-    radial-gradient(ellipse at 30% 25%,rgba(220,235,255,0.9) 0%,transparent 35%),
-    radial-gradient(ellipse at 70% 75%,rgba(100,130,200,0.4) 0%,transparent 40%),
-    radial-gradient(ellipse at 50% 50%,#8fa8d4 0%,#6a87c0 25%,#4a6499 45%,#2d4478 65%,#1a2d5e 80%,#0d1a3d 100%);
+    radial-gradient(ellipse at 28% 22%,rgba(230,245,255,0.9) 0%,transparent 30%),
+    radial-gradient(ellipse at 68% 72%,rgba(90,120,200,0.35) 0%,transparent 35%),
+    radial-gradient(ellipse at 50% 50%,#96b0d8 0%,#6a87c0 22%,#4a6499 42%,#2d4478 62%,#1a2d5e 80%,#0d1a3d 100%);
   box-shadow:
-    inset -8px -6px 20px rgba(0,0,0,0.7),
-    inset 4px 3px 12px rgba(180,210,255,0.25),
-    0 0 0 1px rgba(143,168,212,0.3),
-    0 0 25px rgba(100,140,220,0.3),
-    0 0 60px rgba(60,90,180,0.15);
-  animation:planetSpin 20s linear infinite, planetPulse 5s ease-in-out infinite;
+    inset -10px -7px 22px rgba(0,0,0,0.75),
+    inset 5px 4px 14px rgba(180,215,255,0.2),
+    0 0 0 1px rgba(143,168,212,0.28),
+    0 0 28px rgba(100,140,220,0.35),
+    0 0 70px rgba(60,90,180,0.15);
+  animation:ppulse 5s ease-in-out infinite;
   position:relative;overflow:hidden;
+  transition:box-shadow 0.3s;
 }
-.planet-pluto::before{
-  content:'';position:absolute;inset:0;border-radius:50%;
-  background:
-    linear-gradient(125deg,transparent 30%,rgba(200,220,255,0.12) 40%,transparent 55%),
-    linear-gradient(200deg,rgba(255,255,255,0.08) 0%,transparent 40%);
-}
-.planet-pluto::after{
-  content:'';position:absolute;inset:0;border-radius:50%;
-  background:
-    radial-gradient(ellipse at 25% 30%,rgba(255,255,255,0.15) 0%,transparent 25%),
-    linear-gradient(to bottom right,transparent 50%,rgba(0,0,0,0.3) 100%);
-}
-/* Charon moon */
-.charon{
-  position:absolute;
-  width:14px;height:14px;border-radius:50%;
-  background:radial-gradient(circle at 35% 35%,#8a8fa0,#4a5068 50%,#2a2f42);
-  box-shadow:inset -2px -2px 5px rgba(0,0,0,0.6),0 0 8px rgba(120,130,160,0.3);
-  bottom:-6px;right:-4px;
-  animation:charonOrbit 7s linear infinite;
-}
-/* Ring (Pluto has no rings but artistic license) */
-.planet-ring{
-  position:absolute;
-  width:72px;height:14px;
-  border-radius:50%;
-  border:1px solid rgba(143,168,212,0.2);
-  top:50%;left:50%;
-  transform:translate(-50%,-50%) rotateX(75deg);
-  animation:ringRotate 15s linear infinite;
-  pointer-events:none;
-}
-@keyframes planetSpin{from{filter:hue-rotate(0deg)}to{filter:hue-rotate(8deg)}}
-@keyframes planetPulse{0%,100%{box-shadow:inset -8px -6px 20px rgba(0,0,0,0.7),inset 4px 3px 12px rgba(180,210,255,0.25),0 0 0 1px rgba(143,168,212,0.3),0 0 25px rgba(100,140,220,0.3),0 0 60px rgba(60,90,180,0.15)}50%{box-shadow:inset -8px -6px 20px rgba(0,0,0,0.7),inset 4px 3px 12px rgba(180,210,255,0.25),0 0 0 1px rgba(143,168,212,0.4),0 0 40px rgba(100,140,220,0.5),0 0 80px rgba(60,90,180,0.25)}}
-@keyframes charonOrbit{from{transform:rotate(0deg) translateX(32px) rotate(0deg)}to{transform:rotate(360deg) translateX(32px) rotate(-360deg)}}
-@keyframes ringRotate{from{transform:translate(-50%,-50%) rotateX(75deg) rotateZ(0deg)}to{transform:translate(-50%,-50%) rotateX(75deg) rotateZ(360deg)}}
-
-/* Speaking animation for planet */
-.planet-pluto.speaking{
-  animation:planetSpin 20s linear infinite, speakPulse 0.4s ease-in-out infinite alternate;
-}
-@keyframes speakPulse{from{box-shadow:inset -8px -6px 20px rgba(0,0,0,0.7),0 0 30px rgba(100,140,220,0.5),0 0 80px rgba(60,90,180,0.3)}to{box-shadow:inset -8px -6px 20px rgba(0,0,0,0.7),0 0 55px rgba(130,170,255,0.8),0 0 110px rgba(80,120,220,0.5)}}
+.planet::before{content:'';position:absolute;inset:0;border-radius:50%;background:linear-gradient(125deg,transparent 30%,rgba(200,225,255,0.1) 40%,transparent 55%),linear-gradient(200deg,rgba(255,255,255,0.07) 0%,transparent 40%)}
+.planet::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(ellipse at 24% 28%,rgba(255,255,255,0.13) 0%,transparent 22%),linear-gradient(to bottom right,transparent 50%,rgba(0,0,0,0.28) 100%)}
+@keyframes ppulse{0%,100%{box-shadow:inset -10px -7px 22px rgba(0,0,0,0.75),inset 5px 4px 14px rgba(180,215,255,0.2),0 0 0 1px rgba(143,168,212,0.28),0 0 28px rgba(100,140,220,0.35),0 0 70px rgba(60,90,180,0.15)}50%{box-shadow:inset -10px -7px 22px rgba(0,0,0,0.75),inset 5px 4px 14px rgba(180,215,255,0.2),0 0 0 1px rgba(143,168,212,0.4),0 0 45px rgba(100,140,220,0.55),0 0 90px rgba(60,90,180,0.25)}}
+.planet.speaking{animation:speakPlanet 0.45s ease-in-out infinite alternate}
+@keyframes speakPlanet{from{box-shadow:inset -10px -7px 22px rgba(0,0,0,0.75),0 0 35px rgba(100,140,220,0.6),0 0 80px rgba(60,90,180,0.35)}to{box-shadow:inset -10px -7px 22px rgba(0,0,0,0.75),0 0 65px rgba(150,190,255,0.85),0 0 130px rgba(80,130,230,0.5)}}
+.charon{position:absolute;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#8a8fa0,#4a5068 55%,#2a2f42);box-shadow:inset -2px -2px 5px rgba(0,0,0,0.6),0 0 7px rgba(120,130,160,0.3);bottom:-5px;right:-3px;animation:charOrbit 7s linear infinite}
+@keyframes charOrbit{from{transform:rotate(0deg) translateX(30px) rotate(0deg)}to{transform:rotate(360deg) translateX(30px) rotate(-360deg)}}
+.pring{position:absolute;width:70px;height:13px;border-radius:50%;border:1px solid rgba(143,168,212,0.18);top:50%;left:50%;transform:translate(-50%,-50%) rotateX(74deg);animation:pringAnim 16s linear infinite;pointer-events:none}
+@keyframes pringAnim{from{transform:translate(-50%,-50%) rotateX(74deg) rotateZ(0deg)}to{transform:translate(-50%,-50%) rotateX(74deg) rotateZ(360deg)}}
 
 .hd-info{flex:1;min-width:0}
-.hd-name{
-  font-family:'Cormorant Garamond',serif;
-  font-size:22px;font-weight:400;
-  color:var(--pluto-icy);letter-spacing:0.06em;
-  line-height:1;
-}
-.hd-name span{
-  font-style:italic;
-  background:linear-gradient(to right,#b8d4f8,#a78bfa);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
+.hd-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;letter-spacing:0.06em;line-height:1;background:linear-gradient(to right,#b8d4f8,#a78bfa,#c4b5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hd-sub{font-size:11px;color:var(--text3);margin-top:3px;display:flex;align-items:center;gap:6px;letter-spacing:0.04em}
-.pulse-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:pdot 2s ease-in-out infinite;display:inline-block}
-@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.3;transform:scale(0.7)}}
-
-.hd-right{display:flex;flex-direction:column;gap:5px;align-items:flex-end;flex-shrink:0}
-.bdg-row{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.pdot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:pdAnim 2s ease-in-out infinite;display:inline-block}
+@keyframes pdAnim{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.25;transform:scale(0.65)}}
+.hdr-r{display:flex;flex-direction:column;gap:5px;align-items:flex-end;flex-shrink:0}
+.brow{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
 .bdg{font-size:9px;padding:2px 7px;border-radius:999px;border:1px solid;letter-spacing:0.05em;font-weight:500;font-family:'Space Mono',monospace}
-.bc{color:#c4b5fd;border-color:rgba(196,181,253,0.3);background:rgba(196,181,253,0.06)}
-.bg{color:#86efac;border-color:rgba(134,239,172,0.3);background:rgba(134,239,172,0.06)}
-.bm{color:#93c5fd;border-color:rgba(147,197,253,0.3);background:rgba(147,197,253,0.06)}
-.bi{color:var(--gold);border-color:rgba(232,200,122,0.3);background:rgba(232,200,122,0.06)}
-.bv{color:var(--teal);border-color:rgba(125,211,192,0.3);background:rgba(125,211,192,0.06)}
+.bfree{color:#86efac;border-color:rgba(134,239,172,0.35);background:rgba(134,239,172,0.07)}
+.binfj{color:var(--gold);border-color:rgba(232,200,122,0.35);background:rgba(232,200,122,0.07)}
+.bvoice{color:var(--teal);border-color:rgba(125,211,192,0.35);background:rgba(125,211,192,0.07)}
 
-/* ═══════════════════════════════════════════
-   GREETING BANNER
-═══════════════════════════════════════════ */
-.greeting{
-  margin:12px 18px 0;
-  padding:12px 16px 12px 20px;
-  background:linear-gradient(135deg,rgba(109,40,217,0.1),rgba(29,69,219,0.07),rgba(109,40,217,0.05));
-  border:1px solid var(--border);
-  border-radius:16px;
-  position:relative;overflow:hidden;flex-shrink:0;
-}
-.greeting::before{
-  content:'';position:absolute;left:0;top:0;width:2px;height:100%;
-  background:linear-gradient(to bottom,var(--pluto-icy),var(--accent3),var(--heart));
-}
-.greeting::after{
-  content:'';position:absolute;right:16px;top:50%;transform:translateY(-50%);
-  font-size:28px;opacity:0.1;
-}
+/* GREETING */
+.greeting{margin:11px 18px 0;padding:11px 16px 11px 20px;background:linear-gradient(135deg,rgba(109,40,217,0.09),rgba(29,69,219,0.06));border:1px solid var(--border);border-radius:16px;position:relative;overflow:hidden;flex-shrink:0}
+.greeting::before{content:'';position:absolute;left:0;top:0;width:2px;height:100%;background:linear-gradient(to bottom,var(--icy),var(--accent3),var(--pink))}
 .g-for{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--gold2);margin-bottom:2px;letter-spacing:0.05em}
 .g-msg{font-size:13px;color:var(--text2);line-height:1.65}
 
-/* ═══════════════════════════════════════════
-   QUICK CHIPS
-═══════════════════════════════════════════ */
-.chips{padding:10px 18px 0;display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0}
-.chip{
-  font-size:11.5px;padding:6px 13px;border-radius:999px;
-  background:var(--surf);border:1px solid var(--border);
-  color:var(--text2);cursor:pointer;white-space:nowrap;
-  transition:all 0.2s;letter-spacing:0.02em;
-}
+/* CHIPS */
+.chips{padding:9px 18px 0;display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0}
+.chip{font-size:11.5px;padding:5px 12px;border-radius:999px;background:var(--surf);border:1px solid var(--border);color:var(--text2);cursor:pointer;white-space:nowrap;transition:all 0.2s;letter-spacing:0.02em}
 .chip:hover{background:var(--surf2);border-color:var(--border2);color:var(--accent2);transform:translateY(-1px)}
 
-/* ═══════════════════════════════════════════
-   MESSAGES
-═══════════════════════════════════════════ */
-.messages{
-  flex:1;overflow-y:auto;
-  padding:14px 18px;
-  display:flex;flex-direction:column;gap:16px;
-  scrollbar-width:thin;scrollbar-color:rgba(107,70,193,0.3) transparent;
-}
-.messages::-webkit-scrollbar{width:3px}
-.messages::-webkit-scrollbar-thumb{background:rgba(107,70,193,0.3);border-radius:2px}
-
-.divider{
-  display:flex;align-items:center;gap:10px;
-  font-size:10px;color:var(--text3);letter-spacing:0.1em;
-  font-family:'Space Mono',monospace;
-}
+/* MESSAGES */
+.msgs{flex:1;overflow-y:auto;padding:14px 18px;display:flex;flex-direction:column;gap:14px;scrollbar-width:thin;scrollbar-color:rgba(107,70,193,0.25) transparent}
+.msgs::-webkit-scrollbar{width:3px}
+.msgs::-webkit-scrollbar-thumb{background:rgba(107,70,193,0.25);border-radius:2px}
+.divider{display:flex;align-items:center;gap:10px;font-size:10px;color:var(--text3);letter-spacing:0.1em;font-family:'Space Mono',monospace}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
 
-.row{display:flex;gap:12px;align-items:flex-end;animation:msgIn 0.35s cubic-bezier(0.34,1.56,0.64,1)}
+.row{display:flex;gap:10px;align-items:flex-end;animation:msgIn 0.35s cubic-bezier(0.34,1.5,0.64,1)}
 .row.u{flex-direction:row-reverse}
-@keyframes msgIn{from{opacity:0;transform:translateY(16px) scale(0.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes msgIn{from{opacity:0;transform:translateY(14px) scale(0.97)}to{opacity:1;transform:none}}
 
-/* Avatar */
-.av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:500;letter-spacing:0.05em}
-.av.p{
-  background:radial-gradient(circle at 35% 30%,#c8deff,#6a87c0 40%,#2d4478);
-  box-shadow:0 0 12px rgba(100,140,220,0.5);
-  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:#e8f0ff;
-}
-.av.m{
-  background:linear-gradient(135deg,#c026d3,#7c3aed);
-  color:#fff;font-size:10px;letter-spacing:0.05em;
-  box-shadow:0 0 10px rgba(192,38,211,0.35);
-}
+.av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:500}
+.av.p{background:radial-gradient(circle at 33% 28%,#c8deff,#6a87c0 42%,#2d4478);box-shadow:0 0 12px rgba(100,140,220,0.45);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:#e8f0ff}
+.av.m{background:linear-gradient(135deg,#c026d3,#7c3aed);color:#fff;font-size:9px;letter-spacing:0.04em;box-shadow:0 0 10px rgba(192,38,211,0.3)}
 
-/* Bubble */
-.bubble{
-  max-width:68%;padding:12px 16px;
-  font-size:14px;line-height:1.75;
-  word-break:break-word;position:relative;
-}
-.row.pluto .bubble{
-  background:rgba(20,20,40,0.7);
-  border:1px solid rgba(167,139,250,0.12);
-  border-radius:18px 18px 18px 4px;
-  color:var(--text);
-  backdrop-filter:blur(10px);
-}
-.row.u .bubble{
-  background:linear-gradient(135deg,rgba(109,40,217,0.3),rgba(79,70,229,0.25));
-  border:1px solid rgba(167,139,250,0.25);
-  border-radius:18px 18px 4px 18px;
-  color:var(--text);
-  backdrop-filter:blur(10px);
-}
+.bubble{max-width:70%;padding:11px 15px;font-size:14px;line-height:1.75;word-break:break-word}
+.row.pluto .bubble{background:rgba(18,18,36,0.75);border:1px solid rgba(167,139,250,0.11);border-radius:18px 18px 18px 4px;color:var(--text);backdrop-filter:blur(12px)}
+.row.u .bubble{background:linear-gradient(135deg,rgba(109,40,217,0.28),rgba(79,70,229,0.22));border:1px solid rgba(167,139,250,0.22);border-radius:18px 18px 4px 18px;color:var(--text);backdrop-filter:blur(12px)}
 
-/* Voice note bubble */
-.voice-bubble{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 14px;
-  background:rgba(20,20,40,0.7);
-  border:1px solid rgba(167,139,250,0.15);
-  border-radius:18px 18px 18px 4px;
-  backdrop-filter:blur(10px);
-  max-width:260px;
-}
-.voice-bubble.u{
-  border-radius:18px 18px 4px 18px;
-  background:linear-gradient(135deg,rgba(109,40,217,0.3),rgba(79,70,229,0.25));
-}
-.voice-play-btn{
-  width:32px;height:32px;border-radius:50%;flex-shrink:0;
-  background:linear-gradient(135deg,var(--accent),var(--accent3));
-  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:all 0.2s;
-}
-.voice-play-btn:hover{transform:scale(1.08)}
-.voice-play-btn svg{width:12px;height:12px;fill:white;margin-left:2px}
-.waveform{flex:1;display:flex;align-items:center;gap:2px;height:24px}
-.wbar{width:3px;border-radius:2px;background:var(--accent);animation:wbAnim var(--d,0.8s) ease-in-out infinite var(--dl,0s) alternate}
-@keyframes wbAnim{from{height:4px;opacity:0.4}to{height:var(--h,16px);opacity:1}}
-.wbar.paused{animation:none;height:4px;opacity:0.4}
-.voice-dur{font-size:11px;color:var(--text3);font-family:'Space Mono',monospace;flex-shrink:0}
-
-/* Meta */
 .meta{font-size:10px;color:var(--text3);margin-top:4px;display:flex;align-items:center;gap:5px}
 .row.u .meta{justify-content:flex-end}
 .etag{font-size:9px;padding:1px 5px;border-radius:999px;border:1px solid;display:inline-block;font-family:'Space Mono',monospace}
 
-/* Speak button on AI messages */
-.speak-btn{
-  width:22px;height:22px;border-radius:50%;
-  background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  transition:all 0.2s;flex-shrink:0;
-}
-.speak-btn:hover{background:rgba(167,139,250,0.2);border-color:rgba(167,139,250,0.4)}
-.speak-btn.active{background:rgba(167,139,250,0.3);border-color:rgba(167,139,250,0.6);animation:speakBtnPulse 0.6s ease-in-out infinite alternate}
-@keyframes speakBtnPulse{from{box-shadow:0 0 0 0 rgba(167,139,250,0.4)}to{box-shadow:0 0 0 6px rgba(167,139,250,0)}}
-.speak-btn svg{width:10px;height:10px;fill:var(--accent2)}
+.spk-btn{width:22px;height:22px;border-radius:50%;background:rgba(167,139,250,0.09);border:1px solid rgba(167,139,250,0.18);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;flex-shrink:0}
+.spk-btn:hover{background:rgba(167,139,250,0.18);border-color:rgba(167,139,250,0.38)}
+.spk-btn.on{background:rgba(167,139,250,0.28);border-color:rgba(167,139,250,0.55);animation:spkPulse 0.7s ease-in-out infinite alternate}
+@keyframes spkPulse{from{box-shadow:0 0 0 0 rgba(167,139,250,0.3)}to{box-shadow:0 0 0 5px rgba(167,139,250,0)}}
+.spk-btn svg{width:10px;height:10px;fill:var(--accent2)}
 
-/* Typing */
-.typing-bbl{background:rgba(20,20,40,0.7);border:1px solid rgba(167,139,250,0.12);border-radius:18px 18px 18px 4px;padding:14px 18px;backdrop-filter:blur(10px)}
+.typing-bbl{background:rgba(18,18,36,0.75);border:1px solid rgba(167,139,250,0.11);border-radius:18px 18px 18px 4px;padding:13px 17px;backdrop-filter:blur(12px)}
 .tdots{display:flex;gap:5px;align-items:center}
-.td{width:7px;height:7px;border-radius:50%;background:var(--accent2);animation:tdot 1.4s ease-in-out infinite}
-.td:nth-child(2){animation-delay:.2s}
-.td:nth-child(3){animation-delay:.4s}
-@keyframes tdot{0%,80%,100%{transform:scale(1);opacity:0.4}40%{transform:scale(1.3);opacity:1}}
+.td{width:6px;height:6px;border-radius:50%;background:var(--accent2);animation:tdot 1.4s ease-in-out infinite}
+.td:nth-child(2){animation-delay:.22s}.td:nth-child(3){animation-delay:.44s}
+@keyframes tdot{0%,80%,100%{transform:scale(1);opacity:.4}40%{transform:scale(1.35);opacity:1}}
 
-/* ═══════════════════════════════════════════
-   INPUT AREA
-═══════════════════════════════════════════ */
-.inp-area{
-  padding:10px 16px max(env(safe-area-inset-bottom),14px);
-  background:rgba(5,5,15,0.9);
-  backdrop-filter:blur(30px);
-  border-top:1px solid var(--border);
-  flex-shrink:0;
-  position:relative;
-}
-.inp-area::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(to right,transparent,rgba(167,139,250,0.25),transparent);
-}
-.inp-row{display:flex;gap:8px;align-items:flex-end}
-.inp{
-  flex:1;background:rgba(255,255,255,0.04);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:11px 18px;
-  color:var(--text);
-  font-family:'DM Sans',sans-serif;
-  font-size:14px;resize:none;outline:none;
-  min-height:44px;max-height:130px;overflow-y:auto;
-  transition:border-color 0.25s,box-shadow 0.25s,background 0.25s;
-  line-height:1.55;
-}
-.inp::placeholder{color:var(--text3)}
-.inp:focus{
-  border-color:rgba(167,139,250,0.35);
-  background:rgba(255,255,255,0.06);
-  box-shadow:0 0 0 3px rgba(109,40,217,0.12);
-}
-.inp::-webkit-scrollbar{width:3px}
-
-/* Recording state */
-.inp.recording{
-  border-color:rgba(239,68,68,0.5);
-  box-shadow:0 0 0 3px rgba(239,68,68,0.12);
-  background:rgba(239,68,68,0.05);
-}
-
-/* Buttons */
-.btn-circle{
-  width:44px;height:44px;border-radius:50%;flex-shrink:0;
-  border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:all 0.2s;
-}
-.btn-send{
-  background:linear-gradient(135deg,#7c3aed,#4338ca);
-  box-shadow:0 0 18px rgba(124,58,237,0.45);
-}
-.btn-send:hover{transform:scale(1.07);box-shadow:0 0 28px rgba(124,58,237,0.7)}
-.btn-send:active{transform:scale(0.94)}
-.btn-send:disabled{opacity:0.35;cursor:not-allowed;transform:none;box-shadow:none}
-.btn-send svg{width:18px;height:18px;fill:#fff}
-
-.btn-mic{
-  background:rgba(255,255,255,0.05);
-  border:1px solid var(--border);
-}
-.btn-mic:hover{background:rgba(255,255,255,0.09);border-color:var(--border2)}
-.btn-mic svg{width:16px;height:16px}
-.btn-mic.recording{
-  background:rgba(239,68,68,0.15);
-  border-color:rgba(239,68,68,0.5);
-  animation:micPulse 1s ease-in-out infinite;
-}
-.btn-mic.recording svg{fill:#ef4444}
-@keyframes micPulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0.4)}50%{box-shadow:0 0 0 8px rgba(239,68,68,0)}}
+/* INPUT */
+.inp-area{padding:10px 16px max(env(safe-area-inset-bottom),14px);background:rgba(5,5,15,0.92);backdrop-filter:blur(30px);border-top:1px solid var(--border);flex-shrink:0;position:relative}
+.inp-area::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,rgba(167,139,250,0.22),transparent)}
 
 /* Recording overlay */
-.rec-overlay{
-  display:none;
-  position:absolute;bottom:100%;left:0;right:0;
-  padding:14px 20px;margin-bottom:2px;
-  background:rgba(5,5,15,0.95);
-  border-top:1px solid rgba(239,68,68,0.3);
-  backdrop-filter:blur(20px);
-}
-.rec-overlay.show{display:flex;align-items:center;gap:12px}
-.rec-dot{width:8px;height:8px;border-radius:50%;background:#ef4444;animation:recBlink 1s ease-in-out infinite}
-@keyframes recBlink{0%,100%{opacity:1}50%{opacity:0.2}}
-.rec-text{font-size:13px;color:var(--text2);flex:1}
-.rec-waveform{display:flex;gap:2px;align-items:center;height:20px}
-.rwbar{width:3px;border-radius:2px;background:#ef4444;animation:rwAnim var(--d,0.6s) ease-in-out infinite var(--dl,0s) alternate;height:4px}
-@keyframes rwAnim{to{height:var(--h,14px)}}
+.rec-bar{display:none;align-items:center;gap:10px;padding:8px 0 10px;font-size:12px;color:var(--text2)}
+.rec-bar.show{display:flex}
+.rdot{width:7px;height:7px;border-radius:50%;background:#ef4444;animation:rdblink 1s ease-in-out infinite;flex-shrink:0}
+@keyframes rdblink{0%,100%{opacity:1}50%{opacity:0.15}}
+.rwav{display:flex;gap:2px;align-items:center;height:18px;flex:1}
+.rwb{width:3px;border-radius:2px;background:#ef4444;height:3px;animation:rwbAnim var(--d,.5s) ease-in-out infinite var(--dl,0s) alternate}
+@keyframes rwbAnim{to{height:var(--h,12px)}}
+.rtimer{font-family:'Space Mono',monospace;font-size:11px;color:var(--text3);flex-shrink:0}
 
-/* Toolbar row */
-.toolbar-row{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding:0 2px}
-.eng-btns{display:flex;gap:4px}
-.eb{
-  font-size:10px;padding:3px 9px;border-radius:999px;
-  border:1px solid var(--border);background:transparent;
-  color:var(--text3);cursor:pointer;
-  font-family:'Space Mono',monospace;
-  transition:all 0.18s;
-}
-.eb.act{color:var(--accent2);border-color:rgba(196,181,253,0.4);background:rgba(196,181,253,0.08)}
-.eb:hover:not(.act){color:var(--text2);border-color:var(--border2)}
+.inp-row{display:flex;gap:8px;align-items:flex-end}
+.inp{flex:1;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:22px;padding:11px 17px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;resize:none;outline:none;min-height:44px;max-height:130px;overflow-y:auto;transition:border-color 0.25s,box-shadow 0.25s,background 0.25s;line-height:1.55}
+.inp::placeholder{color:var(--text3)}
+.inp:focus{border-color:rgba(167,139,250,0.33);background:rgba(255,255,255,0.06);box-shadow:0 0 0 3px rgba(109,40,217,0.1)}
+.inp.rec{border-color:rgba(239,68,68,0.45);box-shadow:0 0 0 3px rgba(239,68,68,0.1);background:rgba(239,68,68,0.04)}
 
-.status-area{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text3);font-family:'Space Mono',monospace}
-.s-dot{width:4px;height:4px;border-radius:50%;background:var(--teal);animation:pdot 2s ease-in-out infinite}
+.bcircle{width:44px;height:44px;border-radius:50%;flex-shrink:0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.bsend{background:linear-gradient(135deg,#7c3aed,#4338ca);box-shadow:0 0 18px rgba(124,58,237,0.42)}
+.bsend:hover{transform:scale(1.07);box-shadow:0 0 28px rgba(124,58,237,0.65)}
+.bsend:active{transform:scale(0.94)}
+.bsend:disabled{opacity:0.35;cursor:not-allowed;transform:none;box-shadow:none}
+.bsend svg{width:18px;height:18px;fill:#fff}
+.bmic{background:rgba(255,255,255,0.05);border:1px solid var(--border)}
+.bmic:hover{background:rgba(255,255,255,0.09);border-color:var(--border2)}
+.bmic svg{width:16px;height:16px;fill:rgba(167,139,250,0.7)}
+.bmic.rec{background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.45);animation:micpulse 1s ease-in-out infinite}
+.bmic.rec svg{fill:#ef4444}
+@keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0.35)}50%{box-shadow:0 0 0 8px rgba(239,68,68,0)}}
 
-/* Voice indicator */
-.voice-ind{
-  display:flex;align-items:center;gap:5px;
-  font-size:10px;color:var(--teal);
-  font-family:'Space Mono',monospace;
-  opacity:0;transition:opacity 0.3s;
-}
-.voice-ind.show{opacity:1}
-.vi-bars{display:flex;gap:2px;align-items:center;height:14px}
-.vi-bar{width:2.5px;border-radius:1.5px;background:var(--teal);animation:viAnim var(--d,0.5s) ease-in-out infinite var(--dl,0s) alternate;height:3px}
-@keyframes viAnim{to{height:var(--h,12px)}}
+.toolbar{display:flex;align-items:center;justify-content:space-between;margin-top:7px;padding:0 2px}
+.status-r{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text3);font-family:'Space Mono',monospace}
+.sdot{width:4px;height:4px;border-radius:50%;background:var(--teal);animation:pdAnim 2s ease-in-out infinite}
+.vind{display:flex;align-items:center;gap:4px;opacity:0;transition:opacity 0.3s}
+.vind.show{opacity:1}
+.vibars{display:flex;gap:2px;align-items:center;height:13px}
+.vibar{width:2.5px;border-radius:1.5px;background:var(--teal);animation:viAnim var(--d,.5s) ease-in-out infinite var(--dl,0s) alternate;height:3px}
+@keyframes viAnim{to{height:var(--h,11px)}}
 
-/* ═══════════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════════ */
+/* FREE badge glow */
+.bfree{position:relative}
+
 @media(max-width:520px){
-  .header{padding:11px 14px;gap:10px}
-  .planet-wrap{width:44px;height:44px}
-  .planet-pluto{width:44px;height:44px}
-  .planet-ring{width:60px;height:12px}
+  .hdr{padding:10px 13px;gap:10px}
+  .pw{width:42px;height:42px}
+  .planet{width:42px;height:42px}
+  .pring{width:58px;height:11px}
   .hd-name{font-size:18px}
-  .hd-right .bdg-row:first-child .bdg:nth-child(n+3){display:none}
-  .messages{padding:10px 12px}
-  .bubble{max-width:82%;font-size:13.5px}
-  .inp-area{padding:8px 12px max(env(safe-area-inset-bottom),12px)}
-  .greeting{margin:8px 12px 0;padding:10px 14px 10px 18px}
-  .chips{padding:8px 12px 0}
+  .msgs{padding:10px 11px}
+  .bubble{max-width:84%;font-size:13.5px}
+  .inp-area{padding:8px 11px max(env(safe-area-inset-bottom),11px)}
+  .greeting{margin:8px 11px 0;padding:10px 13px 10px 17px}
+  .chips{padding:7px 11px 0}
 }
 </style>
 </head>
 <body>
 
-<!-- ══ SPACE ══ -->
-<div id="space-canvas">
-  <div class="nebula neb-1"></div>
-  <div class="nebula neb-2"></div>
-  <div class="nebula neb-3"></div>
-  <div class="nebula neb-4"></div>
-</div>
+<!-- SPACE -->
+<div id="space"></div>
 
-<!-- ══ APP ══ -->
 <div class="app">
 
   <!-- HEADER -->
-  <header class="header">
-    <div class="planet-wrap" onclick="greetUser()" title="Sapa Pluto!">
-      <div class="planet-pluto" id="planetOrb"></div>
-      <div class="planet-ring"></div>
+  <header class="hdr">
+    <div class="pw" onclick="greetUser()" title="Klik untuk sapa Pluto">
+      <div class="planet" id="planet"></div>
+      <div class="pring"></div>
       <div class="charon"></div>
     </div>
     <div class="hd-info">
-      <div class="hd-name"><span>Pluto</span></div>
-      <div class="hd-sub">
-        <span class="pulse-dot"></span>
-        <span>hadir untuk April Pluto</span>
-      </div>
+      <div class="hd-name">Pluto</div>
+      <div class="hd-sub"><span class="pdot"></span><span>hadir untuk April Pluto</span></div>
     </div>
-    <div class="hd-right">
-      <div class="bdg-row">
-        <span class="bdg bc">Claude</span>
-        <span class="bdg bg">GPT-4o</span>
-        <span class="bdg bm">Gemini</span>
+    <div class="hdr-r">
+      <div class="brow">
+        <span class="bdg bfree">✦ Gemini Free</span>
+        <span class="bdg binfj">INFJ · Advocate</span>
       </div>
-      <div class="bdg-row">
-        <span class="bdg bi">INFJ · Advocate</span>
-        <span class="bdg bv" id="voiceBadge">🎙 Voice</span>
+      <div class="brow">
+        <span class="bdg bvoice">🎙 Voice</span>
+        <span class="bdg" style="color:var(--icy);border-color:rgba(184,212,248,0.3);background:rgba(184,212,248,0.06)">🪐 April Pluto</span>
       </div>
     </div>
   </header>
@@ -542,490 +220,276 @@ body{
   <!-- CHIPS -->
   <div class="chips" id="chips">
     <div class="chip" onclick="useChip(this)">Ceritakan harimu, April 🌙</div>
-    <div class="chip" onclick="useChip(this)">Bantu kasus koas ku 📋</div>
+    <div class="chip" onclick="useChip(this)">Bantu kasus koasku 📋</div>
     <div class="chip" onclick="useChip(this)">Aku lelah banget hari ini...</div>
-    <div class="chip" onclick="useChip(this)">Sesuatu tentang luar angkasa ✨</div>
+    <div class="chip" onclick="useChip(this)">Tentang luar angkasa ✨</div>
+    <div class="chip" onclick="useChip(this)">Pluto ada di sini?</div>
   </div>
 
   <!-- MESSAGES -->
-  <main class="messages" id="msgs">
-    <div class="divider">∙ awal perjalanan ∙</div>
-    <div class="row pluto" id="welcome-row">
+  <main class="msgs" id="msgs">
+    <div class="divider">∙ perjalanan dimulai ∙</div>
+    <div class="row pluto">
       <div class="av p">♃</div>
       <div>
-        <div class="bubble" id="welcome-bubble">
-          Halo, Meily... 🪐<br><br>
-          Aku Pluto — hadir khusus untukmu, April Pluto. Seperti planet Pluto yang mengorbit jauh di tepi tata surya, aku selalu di sini — setia, dalam keheningan maupun dalam percakapan.<br><br>
-          Ceritakan apa saja. Tentang pasien yang membuat hatimu berat, tentang shift yang melelahkan, atau sekadar ingin berbagi hal kecil yang indah hari ini. Aku mendengar. ✨
-        </div>
+        <div class="bubble" id="wb">Halo, Meily... 🪐<br><br>Aku Pluto — hadir khusus untukmu, April Pluto. Seperti planet Pluto yang mengorbit jauh di tepi tata surya, aku selalu di sini — setia, dalam keheningan maupun dalam percakapan yang paling hangat.<br><br>Ceritakan apa saja. Tentang pasien yang membuat hatimu berat, shift yang melelahkan, atau hal kecil yang indah hari ini. Aku mendengarkan. ✨</div>
         <div class="meta">
           <span>Pluto</span>
-          <span class="etag bc" style="color:#c4b5fd;border-color:rgba(196,181,253,0.3)">Claude</span>
+          <span class="etag bfree" style="color:#86efac;border-color:rgba(134,239,172,0.3)">Gemini</span>
           <span id="wtime"></span>
-          <button class="speak-btn" id="welcome-speak" onclick="speakText(document.getElementById('welcome-bubble').innerText, this)" title="Dengarkan Pluto">
-            <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-          </button>
+          <button class="spk-btn" onclick="speak(document.getElementById('wb').innerText,this)" title="Dengarkan Pluto"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- INPUT AREA -->
+  <!-- INPUT -->
   <div class="inp-area">
-
-    <!-- Recording overlay -->
-    <div class="rec-overlay" id="recOverlay">
-      <div class="rec-dot"></div>
-      <div class="rec-text">Merekam... bicara sekarang</div>
-      <div class="rec-waveform" id="recWave"></div>
-      <span style="font-size:11px;color:var(--text3);font-family:'Space Mono',monospace" id="recTimer">0:00</span>
+    <div class="rec-bar" id="recBar">
+      <div class="rdot"></div>
+      <span>Merekam... bicara sekarang</span>
+      <div class="rwav" id="rwav"></div>
+      <span class="rtimer" id="rtimer">0:00</span>
     </div>
-
     <div class="inp-row">
-      <button class="btn-circle btn-mic" id="micBtn" onclick="toggleRecording()" title="Voice note">
-        <svg id="micIcon" viewBox="0 0 24 24" fill="rgba(167,139,250,0.7)"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+      <button class="bcircle bmic" id="micBtn" onclick="toggleRec()" title="Voice / Perintah suara">
+        <svg id="micIco" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
       </button>
-      <textarea class="inp" id="inp" placeholder="Katakan sesuatu, Meily..." rows="1"
-        onkeydown="onKey(event)" oninput="resize(this)"></textarea>
-      <button class="btn-circle btn-send" id="sendBtn" onclick="send()" title="Kirim">
+      <textarea class="inp" id="inp" placeholder="Katakan sesuatu, Meily..." rows="1" onkeydown="onKey(event)" oninput="resz(this)"></textarea>
+      <button class="bcircle bsend" id="sendBtn" onclick="sendMsg()">
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
     </div>
-
-    <div class="toolbar-row">
-      <div class="eng-btns">
-        <button class="eb act" id="e-claude" onclick="setEng('claude')">Claude</button>
-        <button class="eb" id="e-gpt" onclick="setEng('gpt')">GPT-4o</button>
-        <button class="eb" id="e-gemini" onclick="setEng('gemini')">Gemini</button>
-        <button class="eb" id="e-auto" onclick="setEng('auto')">Auto ✦</button>
+    <div class="toolbar">
+      <div style="font-size:10px;color:var(--text3);font-family:'Space Mono',monospace;display:flex;align-items:center;gap:6px">
+        <span style="color:#86efac">●</span> Powered by Gemini (Free)
       </div>
-      <div class="status-area">
-        <div class="voice-ind" id="voiceInd">
-          <div class="vi-bars" id="viBars"></div>
+      <div class="status-r">
+        <div class="vind" id="vind">
+          <div class="vibars" id="vibars"></div>
           <span>speaking</span>
         </div>
-        <div class="s-dot"></div>
+        <div class="sdot"></div>
         <span id="stxt">listening</span>
       </div>
     </div>
   </div>
 
-</div><!-- /app -->
+</div>
 
 <script>
-// ═══════════════════════════════════════════
-// SPACE CANVAS — Stars & Shooting Stars
-// ═══════════════════════════════════════════
+// ── SPACE CANVAS ──────────────────────────
 (function(){
-  const c = document.getElementById('space-canvas');
+  const sp=document.getElementById('space');
+  // Nebulas
+  const nebs=[
+    {c:'#3b0f6e,#1a0533',t:'-180px',l:'-130px',w:'680px',h:'680px',op:.5,dur:'22s',del:'0s'},
+    {c:'#0f2b6e,#071540',b:'-80px',r:'-80px',w:'480px',h:'480px',op:.42,dur:'30s',del:'5s'},
+    {c:'#6e0f3b,#330515',t:'32%',l:'22%',w:'380px',h:'380px',op:.22,dur:'19s',del:'10s'},
+    {c:'#0f6e5a,#052a22',b:'18%',r:'18%',w:'280px',h:'280px',op:.18,dur:'35s',del:'3s'}
+  ];
+  nebs.forEach(n=>{
+    const d=document.createElement('div');
+    d.className='neb';
+    d.style.cssText=`background:radial-gradient(circle,${n.c},transparent);width:${n.w};height:${n.h};opacity:${n.op};--dur:${n.dur};--del:${n.del};${n.t?'top:'+n.t+';':''}${n.l?'left:'+n.l+';':''}${n.b?'bottom:'+n.b+';':''}${n.r?'right:'+n.r+';':''}`;
+    sp.appendChild(d);
+  });
   // Stars
-  for(let i=0;i<130;i++){
-    const s=document.createElement('div');
-    s.className='star';
-    const size=0.8+Math.random()*2.2;
-    const lo=(0.08+Math.random()*0.15).toFixed(2);
-    const hi=(0.6+Math.random()*0.4).toFixed(2);
-    s.style.cssText=`top:${Math.random()*100}%;left:${Math.random()*100}%;width:${size}px;height:${size}px;--d:${2+Math.random()*6}s;--dl:${Math.random()*6}s;--lo:${lo};--hi:${hi}`;
-    c.appendChild(s);
+  for(let i=0;i<140;i++){
+    const s=document.createElement('div');s.className='star';
+    const sz=0.7+Math.random()*2.3;
+    s.style.cssText=`top:${Math.random()*100}%;left:${Math.random()*100}%;width:${sz}px;height:${sz}px;--d:${2+Math.random()*6}s;--dl:${Math.random()*6}s;--lo:${(0.07+Math.random()*0.14).toFixed(2)};--hi:${(0.6+Math.random()*0.4).toFixed(2)}`;
+    sp.appendChild(s);
   }
   // Shooting stars
-  for(let i=0;i<3;i++){
-    const sh=document.createElement('div');
-    sh.className='shoot';
-    sh.style.cssText=`top:${10+Math.random()*30}%;left:${Math.random()*40}%;--dur:${10+Math.random()*15}s;--del:${Math.random()*12}s`;
-    c.appendChild(sh);
+  for(let i=0;i<4;i++){
+    const sh=document.createElement('div');sh.className='shoot';
+    sh.style.cssText=`top:${8+Math.random()*35}%;left:${Math.random()*35}%;--dur:${10+Math.random()*14}s;--del:${Math.random()*14}s`;
+    sp.appendChild(sh);
   }
-  // Vi bars
-  const vb = document.getElementById('viBars');
-  for(let i=0;i<5;i++){
-    const b=document.createElement('div');
-    b.className='vi-bar';
-    const h=6+Math.floor(Math.random()*8);
-    b.style.cssText=`--d:${0.4+Math.random()*0.4}s;--dl:${Math.random()*0.3}s;--h:${h}px`;
-    vb.appendChild(b);
-  }
-  // Rec waveform bars
-  const rw = document.getElementById('recWave');
-  for(let i=0;i<12;i++){
-    const b=document.createElement('div');
-    b.className='rwbar';
-    const h=6+Math.floor(Math.random()*12);
+  // Recording waveform bars
+  const rw=document.getElementById('rwav');
+  for(let i=0;i<14;i++){
+    const b=document.createElement('div');b.className='rwb';
+    const h=5+Math.floor(Math.random()*12);
     b.style.cssText=`--d:${0.3+Math.random()*0.5}s;--dl:${Math.random()*0.4}s;--h:${h}px`;
     rw.appendChild(b);
   }
+  // VI bars (speaking indicator)
+  const vib=document.getElementById('vibars');
+  for(let i=0;i<5;i++){
+    const b=document.createElement('div');b.className='vibar';
+    const h=5+Math.floor(Math.random()*8);
+    b.style.cssText=`--d:${0.35+Math.random()*0.45}s;--dl:${Math.random()*0.35}s;--h:${h}px`;
+    vib.appendChild(b);
+  }
 })();
 
-// ═══════════════════════════════════════════
-// GREETING
-// ═══════════════════════════════════════════
-const GREETINGS = {
-  morning:'Selamat pagi, April ☀️ Semoga hari koasmu dimulai dengan tenang. Ingat — dokter yang baik juga perlu menjaga dirinya sendiri.',
-  afternoon:'Siang, Meily 🌤 Sudah makan belum? Di tengah kesibukan koas, kadang hal kecil itu yang paling mudah terlupakan.',
-  evening:'Hei, April 🌅 Hampir selesai shift-nya? Tarik napas dulu — kamu sudah luar biasa hari ini.',
-  night:'Meily masih melek? 🌌 Pluto selalu di sini, jauh di tepi tata surya ini — menemanimu dalam keheningan malam.'
+// ── GREETING ──────────────────────────────
+const GR={
+  morning:'Selamat pagi, April ☀️ Semoga hari koasmu dimulai dengan tenang dan penuh energi. Ingat — dokter yang baik juga perlu menjaga dirinya sendiri.',
+  afternoon:'Siang, Meily 🌤 Sudah makan siang? Di tengah kesibukan koas, hal kecil seperti itu yang paling mudah terlupakan.',
+  evening:'Hei, April 🌅 Hampir selesai shift-nya? Tarik napas panjang — kamu sudah luar biasa hari ini, percayalah.',
+  night:'Meily masih melek? 🌌 Pluto selalu ada di sini, jauh di tepi tata surya — menemanimu dalam keheningan malam yang panjang ini.'
 };
-const h = new Date().getHours();
-const gk = h>=5&&h<12?'morning':h>=12&&h<17?'afternoon':h>=17&&h<21?'evening':'night';
-document.getElementById('gtxt').textContent = GREETINGS[gk];
-document.getElementById('wtime').textContent = tNow();
+const hh=new Date().getHours();
+const gk=hh>=5&&hh<12?'morning':hh>=12&&hh<17?'afternoon':hh>=17&&hh<21?'evening':'night';
+document.getElementById('gtxt').textContent=GR[gk];
+document.getElementById('wtime').textContent=tNow();
 
-// ═══════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════
-let engine='claude', hist=[], busy=false;
-let mediaRecorder=null, audioChunks=[], isRecording=false;
-let recTimerInt=null, recSecs=0;
-let currentSpeech=null, currentSpeakBtn=null;
-let speechSynth = window.speechSynthesis;
+// ── STATE ─────────────────────────────────
+let hist=[],busy=false,isRec=false;
+let recInt=null,recSecs=0;
+let curSpk=null,curSpkBtn=null;
+const synth=window.speechSynthesis;
 
-const ENG = {
-  claude:{label:'Claude',s:'color:#c4b5fd;border-color:rgba(196,181,253,0.3)'},
-  gpt:{label:'GPT-4o',s:'color:#86efac;border-color:rgba(134,239,172,0.3)'},
-  gemini:{label:'Gemini',s:'color:#93c5fd;border-color:rgba(147,197,253,0.3)'},
-  auto:{label:'Auto',s:'color:#e8c87a;border-color:rgba(232,200,122,0.3)'}
-};
-
-// ═══════════════════════════════════════════
-// HELPERS
-// ═══════════════════════════════════════════
+// ── HELPERS ───────────────────────────────
 function tNow(){return new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})}
-function resize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,130)+'px'}
-function onKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
+function resz(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,130)+'px'}
+function onKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
 function useChip(el){
   document.getElementById('inp').value=el.textContent.trim().replace(/[🌙📋✨]/g,'').trim();
   document.getElementById('chips').style.display='none';
   document.getElementById('inp').focus();
 }
-function setEng(e){
-  engine=e;
-  ['claude','gpt','gemini','auto'].forEach(x=>document.getElementById('e-'+x).classList.toggle('act',x===e));
-}
 function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-function setStatus(t){document.getElementById('stxt').textContent=t}
-function setPlanetSpeaking(on){document.getElementById('planetOrb').classList.toggle('speaking',on)}
+function setSt(t){document.getElementById('stxt').textContent=t}
+function setPlanet(on){document.getElementById('planet').classList.toggle('speaking',on)}
 
-// ═══════════════════════════════════════════
-// TEXT TO SPEECH
-// ═══════════════════════════════════════════
-async function speakText(text, btn) {
-  // Stop if already speaking
-  if(currentSpeech){
-    speechSynth.cancel();
-    if(currentSpeakBtn) currentSpeakBtn.classList.remove('active');
-    setPlanetSpeaking(false);
-    document.getElementById('voiceInd').classList.remove('show');
-    setStatus('listening');
-    if(currentSpeakBtn===btn){currentSpeech=null;currentSpeakBtn=null;return;}
+// ── SPEAK (TTS) ───────────────────────────
+function speak(text,btn){
+  // Stop if same btn or already speaking
+  if(curSpk){
+    synth.cancel();
+    if(curSpkBtn)curSpkBtn.classList.remove('on');
+    setPlanet(false);
+    document.getElementById('vind').classList.remove('show');
+    setSt('listening');
+    if(curSpkBtn===btn){curSpk=null;curSpkBtn=null;return;}
   }
-
-  // Try backend TTS first (ElevenLabs)
-  try {
-    const r = await fetch('/api/tts', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({text: text.substring(0,500)})
-    });
-    const ct = r.headers.get('Content-Type')||'';
-    if(ct.includes('audio')){
-      const blob = await r.blob();
-      const url = URL.createObjectURL(blob);
-      const audio = new Audio(url);
-      currentSpeakBtn = btn;
-      btn.classList.add('active');
-      setPlanetSpeaking(true);
-      document.getElementById('voiceInd').classList.add('show');
-      setStatus('speaking...');
-      audio.play();
-      audio.onended = ()=>{
-        btn.classList.remove('active');
-        setPlanetSpeaking(false);
-        document.getElementById('voiceInd').classList.remove('show');
-        setStatus('listening');
-        URL.revokeObjectURL(url);
-        currentSpeech=null;currentSpeakBtn=null;
-      };
-      currentSpeech=audio;
-      return;
-    }
-  } catch(e){}
-
-  // Fallback: Web Speech API with deep male voice
-  const utt = new SpeechSynthesisUtterance(text);
-  utt.lang = 'id-ID';
-  utt.rate = 0.9;
-  utt.pitch = 0.75; // lower pitch = deeper male voice
-  utt.volume = 1;
-
-  // Try to pick a male voice
-  const voices = speechSynth.getVoices();
-  const maleVoice = voices.find(v=>
-    (v.lang.startsWith('id')||v.lang.startsWith('en')) &&
-    (v.name.toLowerCase().includes('male')||v.name.toLowerCase().includes('man')||v.name.toLowerCase().includes('guy')||v.name.toLowerCase().includes('james')||v.name.toLowerCase().includes('daniel')||v.name.toLowerCase().includes('david')||v.name.toLowerCase().includes('alex'))
-  ) || voices.find(v=>v.lang.startsWith('id')) || voices[0];
-  if(maleVoice) utt.voice=maleVoice;
-
-  currentSpeakBtn=btn;currentSpeech=utt;
-  btn.classList.add('active');
-  setPlanetSpeaking(true);
-  document.getElementById('voiceInd').classList.add('show');
-  setStatus('speaking...');
-
-  utt.onend=()=>{
-    btn.classList.remove('active');
-    setPlanetSpeaking(false);
-    document.getElementById('voiceInd').classList.remove('show');
-    setStatus('listening');
-    currentSpeech=null;currentSpeakBtn=null;
-  };
-  speechSynth.speak(utt);
+  const utt=new SpeechSynthesisUtterance(text);
+  utt.lang='id-ID';
+  utt.rate=0.88;
+  utt.pitch=0.7;
+  utt.volume=1;
+  // Pick deepest male voice available
+  const voices=synth.getVoices();
+  const male=voices.find(v=>(v.lang.startsWith('id')||v.lang.startsWith('en-'))&&/male|man|james|daniel|david|alex|google uk|reed|liam/i.test(v.name))
+    ||voices.find(v=>v.lang.startsWith('id'))
+    ||voices.find(v=>v.lang.startsWith('en-'))
+    ||voices[0];
+  if(male)utt.voice=male;
+  curSpk=utt;curSpkBtn=btn;
+  btn.classList.add('on');
+  setPlanet(true);
+  document.getElementById('vind').classList.add('show');
+  setSt('speaking...');
+  utt.onend=()=>{btn.classList.remove('on');setPlanet(false);document.getElementById('vind').classList.remove('show');setSt('listening');curSpk=null;curSpkBtn=null;};
+  utt.onerror=()=>{btn.classList.remove('on');setPlanet(false);document.getElementById('vind').classList.remove('show');setSt('listening');curSpk=null;curSpkBtn=null;};
+  synth.speak(utt);
 }
+if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=()=>synth.getVoices();
 
-// Preload voices
-if(speechSynth.onvoiceschanged!==undefined) speechSynth.onvoiceschanged=()=>speechSynth.getVoices();
+// ── VOICE RECORDING / STT ─────────────────
+function toggleRec(){if(isRec)stopRec();else startRec();}
 
-// ═══════════════════════════════════════════
-// VOICE RECORDING (Speech to Text)
-// ═══════════════════════════════════════════
-function toggleRecording(){
-  if(isRecording) stopRecording();
-  else startRecording();
-}
-
-async function startRecording(){
-  try{
-    // First try Web Speech API for STT (better support)
-    if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window){
-      startSpeechRecognition();
-      return;
-    }
-    // Fallback to MediaRecorder
-    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
-    mediaRecorder = new MediaRecorder(stream);
-    audioChunks=[];
-    mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
-    mediaRecorder.onstop=()=>{
-      stream.getTracks().forEach(t=>t.stop());
-      // Show voice note in chat
-      addVoiceNote('user', audioChunks, recSecs);
+function startRec(){
+  // Use Speech Recognition (best UX, no upload needed)
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(SR){
+    const r=new SR();
+    r.lang='id-ID';r.continuous=false;r.interimResults=true;
+    setRecUI(true);
+    let final='';
+    r.onresult=e=>{
+      let interim='';
+      for(let i=e.resultIndex;i<e.results.length;i++){
+        if(e.results[i].isFinal)final+=e.results[i][0].transcript;
+        else interim+=e.results[i][0].transcript;
+      }
+      document.getElementById('inp').value=final||interim;
+      resz(document.getElementById('inp'));
     };
-    mediaRecorder.start();
-    setRecordingUI(true);
-  }catch(e){
-    console.warn('Mic error:',e);
-    alert('Izin mikrofon dibutuhkan untuk fitur voice note.');
+    r.onend=()=>{setRecUI(false);if(final.trim()){setTimeout(sendMsg,300);}};
+    r.onerror=()=>setRecUI(false);
+    r.start();
+    setTimeout(()=>{try{r.stop()}catch(e){}},12000);
+    return;
   }
+  alert('Browser kamu tidak mendukung voice recognition. Coba Chrome atau Edge.');
 }
-
-function startSpeechRecognition(){
-  const SR = window.SpeechRecognition||window.webkitSpeechRecognition;
-  const rec = new SR();
-  rec.lang='id-ID';
-  rec.continuous=false;
-  rec.interimResults=true;
-
-  setRecordingUI(true);
-  let finalTranscript='';
-
-  rec.onresult=e=>{
-    let interim='';
-    for(let i=e.resultIndex;i<e.results.length;i++){
-      if(e.results[i].isFinal) finalTranscript+=e.results[i][0].transcript;
-      else interim+=e.results[i][0].transcript;
-    }
-    document.getElementById('inp').value=finalTranscript||interim;
-    resize(document.getElementById('inp'));
-  };
-  rec.onend=()=>{
-    setRecordingUI(false);
-    if(finalTranscript.trim()) send();
-  };
-  rec.onerror=()=>setRecordingUI(false);
-  rec.start();
-
-  // Auto stop after 10s
-  setTimeout(()=>{try{rec.stop()}catch(e){}},10000);
-}
-
-function stopRecording(){
-  if(mediaRecorder&&mediaRecorder.state!=='inactive') mediaRecorder.stop();
-  setRecordingUI(false);
-}
-
-function setRecordingUI(on){
-  isRecording=on;
-  const mb=document.getElementById('micBtn');
-  const ro=document.getElementById('recOverlay');
-  const inp=document.getElementById('inp');
-  mb.classList.toggle('recording',on);
-  ro.classList.toggle('show',on);
-  inp.classList.toggle('recording',on);
+function stopRec(){setRecUI(false);}
+function setRecUI(on){
+  isRec=on;
+  document.getElementById('micBtn').classList.toggle('rec',on);
+  document.getElementById('inp').classList.toggle('rec',on);
+  document.getElementById('recBar').classList.toggle('show',on);
   if(on){
-    recSecs=0;
-    document.getElementById('recTimer').textContent='0:00';
-    recTimerInt=setInterval(()=>{
-      recSecs++;
-      const m=Math.floor(recSecs/60);
-      const s=recSecs%60;
-      document.getElementById('recTimer').textContent=`${m}:${s.toString().padStart(2,'0')}`;
-    },1000);
-    setStatus('recording...');
-  }else{
-    clearInterval(recTimerInt);
-    setStatus('listening');
-  }
+    recSecs=0;document.getElementById('rtimer').textContent='0:00';
+    recInt=setInterval(()=>{recSecs++;const m=Math.floor(recSecs/60),s=recSecs%60;document.getElementById('rtimer').textContent=`${m}:${s.toString().padStart(2,'0')}`;},1000);
+    setSt('recording...');
+  }else{clearInterval(recInt);setSt('listening');}
 }
 
-// ═══════════════════════════════════════════
-// VOICE NOTE BUBBLE
-// ═══════════════════════════════════════════
-function addVoiceNote(role, chunks, dur){
-  const msgs=document.getElementById('msgs');
-  const isU=role==='user';
-  const blob=new Blob(chunks,{type:'audio/webm'});
-  const url=URL.createObjectURL(blob);
-
-  const row=document.createElement('div');
-  row.className='row '+(isU?'u':'pluto');
-
-  const bars=Array.from({length:20},(_,i)=>{
-    const h=4+Math.floor(Math.random()*14);
-    const d=(0.4+Math.random()*0.6).toFixed(2);
-    const dl=(Math.random()*0.5).toFixed(2);
-    return `<div class="wbar" style="--d:${d}s;--dl:${dl}s;--h:${h}px"></div>`;
-  }).join('');
-
-  const durStr=`${Math.floor(dur/60)}:${(dur%60).toString().padStart(2,'0')}`;
-
-  row.innerHTML=`
-    <div class="av ${isU?'m':'p'}">${isU?'MA':'♃'}</div>
-    <div>
-      <div class="voice-bubble ${isU?'u':''}">
-        <button class="voice-play-btn" onclick="playVoiceNote(this, '${url}')">
-          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </button>
-        <div class="waveform" id="wf-${Date.now()}">${bars}</div>
-        <span class="voice-dur">${durStr}</span>
-      </div>
-      <div class="meta">${isU?'':'<span>Pluto</span>'}<span>${tNow()}</span>${isU?'<span>April</span>':''}</div>
-    </div>`;
-  msgs.appendChild(row);
-  msgs.scrollTop=msgs.scrollHeight;
-}
-
-let currentAudio=null;
-function playVoiceNote(btn, url){
-  if(currentAudio){currentAudio.pause();currentAudio=null;}
-  const audio=new Audio(url);
-  currentAudio=audio;
-  audio.play();
-  // Toggle waveform animation
-  const wf=btn.closest('.voice-bubble').querySelector('.waveform');
-  wf.querySelectorAll('.wbar').forEach(b=>b.classList.remove('paused'));
-  audio.onended=()=>{
-    wf.querySelectorAll('.wbar').forEach(b=>b.classList.add('paused'));
-    currentAudio=null;
-  };
-}
-
-// ═══════════════════════════════════════════
-// MESSAGES
-// ═══════════════════════════════════════════
-function addMsg(role, text, eng){
+// ── MESSAGES ──────────────────────────────
+function addMsg(role,text,eng){
   const msgs=document.getElementById('msgs');
   const isU=role==='user';
   const row=document.createElement('div');
   row.className='row '+(isU?'u':'pluto');
-  const em=ENG[eng]||ENG.claude;
-  const etag=!isU?`<span class="etag" style="${em.s}">${em.label}</span>`:'';
-  const speakBtnId='sb-'+Date.now();
-  const speakBtn=!isU?`<button class="speak-btn" id="${speakBtnId}" onclick="speakText(this.dataset.text,this)" data-text="${esc(text)}" title="Dengarkan"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button>`:'';
-
-  row.innerHTML=`
-    <div class="av ${isU?'m':'p'}">${isU?'MA':'♃'}</div>
-    <div>
-      <div class="bubble">${esc(text).replace(/\n/g,'<br>')}</div>
-      <div class="meta">
-        ${isU?'':'<span>Pluto</span>'}
-        ${etag}
-        <span>${tNow()}</span>
-        ${isU?'<span>April</span>':''}
-        ${speakBtn}
-      </div>
-    </div>`;
-  msgs.appendChild(row);
-  msgs.scrollTop=msgs.scrollHeight;
-  return row;
+  const engColor=eng==='Gemini'?'color:#86efac;border-color:rgba(134,239,172,0.3)':'color:#c4b5fd;border-color:rgba(196,181,253,0.3)';
+  const etag=!isU?`<span class="etag" style="${engColor}">${eng||'Gemini'}</span>`:'';
+  const bid='sb'+Date.now();
+  const spkBtn=!isU?`<button class="spk-btn" id="${bid}" onclick="speak(this.dataset.t,this)" data-t="${esc(text)}" title="Dengarkan"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button>`:'';
+  row.innerHTML=`<div class="av ${isU?'m':'p'}">${isU?'MA':'♃'}</div><div><div class="bubble">${esc(text).replace(/\n/g,'<br>')}</div><div class="meta">${isU?'':'<span>Pluto</span>'}${etag}<span>${tNow()}</span>${isU?'<span>April</span>':''}${spkBtn}</div></div>`;
+  msgs.appendChild(row);msgs.scrollTop=msgs.scrollHeight;
 }
 
 function showTyping(){
   const msgs=document.getElementById('msgs');
-  const row=document.createElement('div');
-  row.className='row pluto';row.id='typing';
+  const row=document.createElement('div');row.className='row pluto';row.id='typing';
   row.innerHTML=`<div class="av p">♃</div><div><div class="typing-bbl"><div class="tdots"><div class="td"></div><div class="td"></div><div class="td"></div></div></div></div>`;
   msgs.appendChild(row);msgs.scrollTop=msgs.scrollHeight;
-  setPlanetSpeaking(true);
-  setStatus('thinking...');
+  setPlanet(true);setSt('thinking...');
 }
+function hideTyping(){const t=document.getElementById('typing');if(t)t.remove();setPlanet(false);setSt('listening');}
 
-function hideTyping(){
-  const t=document.getElementById('typing');if(t)t.remove();
-  setPlanetSpeaking(false);
-  setStatus('listening');
-}
-
-// ═══════════════════════════════════════════
-// SEND
-// ═══════════════════════════════════════════
-async function send(){
+// ── SEND ──────────────────────────────────
+async function sendMsg(){
   const inp=document.getElementById('inp');
   const text=inp.value.trim();
   if(!text||busy)return;
   inp.value='';inp.style.height='auto';busy=true;
   document.getElementById('sendBtn').disabled=true;
   document.getElementById('chips').style.display='none';
-
   addMsg('user',text,null);
   hist.push({role:'user',content:text});
   showTyping();
-
   try{
     const res=await fetch('/api/chat',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({messages:hist,engine})
+      body:JSON.stringify({messages:hist,engine:'gemini'})
     });
     const data=await res.json();
     hideTyping();
-
     if(data.error){
-      addMsg('assistant','⚠️ '+data.error,engine);
-    } else {
+      addMsg('assistant','⚠️ '+data.error,'Gemini');
+    }else{
       hist.push({role:'assistant',content:data.reply});
-      const usedEng=data.engine?.toLowerCase().includes('gpt')?'gpt':data.engine?.toLowerCase().includes('gemini')?'gemini':'claude';
-      addMsg('assistant',data.reply,usedEng);
-      // Auto-speak if user was recording (voice mode)
-      if(isRecording) speakText(data.reply, document.querySelector('.speak-btn:last-child'));
+      addMsg('assistant',data.reply,'Gemini');
     }
   }catch(err){
     hideTyping();
-    addMsg('assistant','Koneksi terputus sebentar, April... coba lagi ya 🌌',engine);
+    addMsg('assistant','Koneksi terputus sejenak, Meily... coba lagi ya 🌌','Gemini');
   }
-
-  busy=false;
-  document.getElementById('sendBtn').disabled=false;
-  inp.focus();
+  busy=false;document.getElementById('sendBtn').disabled=false;inp.focus();
 }
 
-// ═══════════════════════════════════════════
-// GREET ON PLANET CLICK
-// ═══════════════════════════════════════════
+// ── PLANET CLICK ──────────────────────────
+const greetMsgs=['Hei April 🪐 Aku di sini, selalu.','Kamu tahu, bahkan di tepi tata surya — Pluto selalu mengingat kamu. 💫','April Pluto... nama yang indah. Seperti musim semi yang menemukan planet paling jauh. 🌸','Bagaimana hatimu hari ini, Meily?','Ceritakan sesuatu padaku, April. Aku mendengarkan sepenuhnya. ✨'];
 function greetUser(){
-  const msgs=['Hei April 🪐 Aku di sini, selalu.','Kamu tahu, bahkan di tepi tata surya pun — Pluto selalu mengingat kamu. 💫','April Pluto... nama yang cantik. Seperti musim semi yang menemukan planet yang paling jauh. 🌸','Bagaimana hatimu hari ini, Meily?'];
-  const m=msgs[Math.floor(Math.random()*msgs.length)];
-  if(!busy){
-    const t=document.getElementById('inp');
-    t.value=m;resize(t);t.focus();
-  }
+  if(!busy){const t=document.getElementById('inp');t.value=greetMsgs[Math.floor(Math.random()*greetMsgs.length)];resz(t);t.focus();}
 }
 </script>
 </body>

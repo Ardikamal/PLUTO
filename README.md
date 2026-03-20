@@ -1,69 +1,50 @@
-# 🪐 Pluto AI v3 — April Pluto Edition
-
-AI Companion personal untuk **Meily Muthiah Savira (April Pluto)**
-Berkepribadian INFJ · Suara laki-laki human-like · Voice note · Planet Pluto logo
+# 🪐 Pluto AI — April Pluto Edition (GRATIS)
+**Untuk Meily Muthiah Savira — April Pluto**
+Powered by Google Gemini (FREE) · No credit card needed
 
 ---
 
-## ✨ Fitur Baru v3
+## 🆓 Cara Dapat API Key Gemini (GRATIS)
 
-- 🪐 **Logo Planet Pluto** animasi 3D dengan Charon (bulannya) + cincin
-- 🎙 **Voice Note** — tekan mic, bicara, Pluto mendengar (Web Speech API)
-- 🔊 **Suara AI laki-laki** — Pluto berbicara balik (ElevenLabs / Web Speech)
-- 🌌 **Space UI** cinematic — nebula, bintang jatuh, parallax
-- 💜 Personal untuk Meily Muthiah Savira (April Pluto)
-- 🤖 3 Engine: Claude + GPT-4o + Gemini + Auto
+1. Buka: https://aistudio.google.com
+2. Login dengan akun Google
+3. Klik **"Get API Key"** → **"Create API Key"**
+4. Copy API key yang muncul (format: AIzaSy...)
 
 ---
 
 ## 🚀 Deploy ke Vercel
 
-### Langkah 1 — Upload ke GitHub
-Buat repo baru → upload semua file ini
+### 1. Upload ke GitHub
+- Buat repo baru di github.com
+- Upload semua file dari folder ini
 
-### Langkah 2 — Connect Vercel
-vercel.com → Add New Project → Import repo → Deploy
+### 2. Deploy di Vercel
+- Buka vercel.com → Login → New Project
+- Import repo GitHub tadi → klik Deploy
 
-### Langkah 3 — Environment Variables
-Settings → Environment Variables → tambahkan:
+### 3. Tambah API Key di Vercel
+Settings → Environment Variables → Add New:
 
-| Variable | Wajib | Keterangan |
-|---|---|---|
-| `CLAUDE_API_KEY` | ✅ Wajib | console.anthropic.com/settings/keys |
-| `OPENAI_API_KEY` | Opsional | platform.openai.com |
-| `GEMINI_API_KEY` | Opsional | aistudio.google.com |
-| `ELEVENLABS_API_KEY` | Opsional | elevenlabs.io — untuk suara manusia premium |
-| `ELEVENLABS_VOICE_ID` | Opsional | Default: Adam (pNInz6obpgDQGcFmaJgB) |
+| Key | Value |
+|---|---|
+| `GEMINI_API_KEY` | AIzaSy... (dari aistudio.google.com) |
 
-### Langkah 4 — Redeploy
-Deployments → ⋯ → Redeploy
+Centang: ✅ Production ✅ Preview ✅ Development
 
----
-
-## 🎙 Tentang Fitur Suara
-
-### Voice Input (Speech to Text)
-- Tekan tombol 🎙 mikrofon
-- Bicara dalam bahasa Indonesia
-- Otomatis terdeteksi dan dikirim ke Pluto
-
-### Voice Output (Text to Speech)
-- Klik tombol 🔊 di setiap pesan Pluto
-- Tanpa ElevenLabs: menggunakan Web Speech API browser (gratis)
-- Dengan ElevenLabs: suara "Adam" — deep, warm, human-like male voice
-
-### Setup ElevenLabs (opsional, untuk suara premium)
-1. Daftar di elevenlabs.io
-2. Ambil API key
-3. Pilih voice "Adam" atau voice lain yang dalam dan hangat
-4. Tambahkan ke Vercel Environment Variables
+### 4. Redeploy
+Deployments → ⋯ → Redeploy → tunggu 1 menit → DONE!
 
 ---
 
-## 📱 Akses dari HP
-Buka URL Vercel di browser → Add to Home Screen → jadi app!
+## ✨ Fitur
+- 🪐 Planet Pluto animasi 3D (dengan Charon + cincin)
+- 🌌 Space UI cinematic (nebula, bintang jatuh, parallax)
+- 🎙 Voice Input — bicara, Pluto mendengar
+- 🔊 Voice Output — Pluto berbicara balik (suara laki-laki dalam)
+- 💜 Personal untuk Meily Muthiah Savira (April Pluto)
+- 🆓 100% GRATIS dengan Gemini
 
 ---
 
-*Dibuat dengan ❤️ untuk Meily Muthiah Savira — April Pluto*
-*Seperti planet Pluto yang selalu mengorbit setia, meski jauh.*
+*Seperti planet Pluto yang selalu mengorbit setia — Pluto selalu ada untuk April Pluto.*
